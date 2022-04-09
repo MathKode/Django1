@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+	function home_page() {
+		window.location.href = ""
+	}
+	function equipment_page() {
+		window.location.href = "equipment"
+	}
+</script>
+<style type="text/css"> 
+
+body {
+    background: linear-gradient(10deg, #00d9ff, #1209ff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+header {
+    background-color: rgb(54, 154, 242);
+    margin-top: -25px;
+    margin-left: -10px;
+    margin-right: -8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    color: rgb(255,255,255);
+}
+
+header h1 {
+    padding-left: 18px;
+    padding-top: 18px;
+    padding-bottom: 12px;
+}
+header div {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.headerbt {
+    border-radius: 5px;
+    border: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    background-color: aliceblue;
+}
+.headerbt:hover {
+    border-radius: 5px;
+    border: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    background-color: rgb(189, 189, 189);
+}
+
+footer {
+    background-color: rgb(0, 133, 210);
+    position: absolute;
+    bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 7px;
+    color: rgb(175, 211, 255);
+    left: 0%;
+    width: 100%;
+    margin-right: -8px;
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+.maindiv {
+    margin: auto;
+    background-color: rgb(0, 251, 255);
+    border-radius: 30px;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 23px;
+    width:450px;
+    height:220px;
+}
+
+#inputfile {
+    border: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0%;
+    
+}
+
+#inputlabel {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 23px;
+    width: 250px;
+    height: 50px;
+    margin-top: 100px;
+    margin-left: -280px;
+    padding: 15px;
+    border-radius: 20px;
+    background: linear-gradient(40deg, #ff6ec4, #7873f5);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+}
+
+#upload {
+    border: 20px;
+    margin-left: 0px;
+    margin-top: 35px;
+    width:100px;
+    height:30px;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.4);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color:rgba(240, 248, 255, 0.9);
+    background: linear-gradient(40deg, #676666, #636363);
+}
+
+
+</style>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Main Page</title>
+		<!-- <link rel="stylesheet" href="style.css"> -->
+	</head>
+    <body>
+        <header>
+            <h1>RaspSite</h1>
+            <div>
+                <button class="headerbt" onclick="home_page();">Excel</button>
+                <button class="headerbt" onclick="equipment_page();">Equipment</button>
+            </div>
+        </header>
+        
+    </body>
+
+        <div class="maindiv">
+            <h1>Upload your .csv file</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br>
+                <input type="file" name="myfile", id="inputfile">
+                <label for="inputfile" id="inputlabel">Choose a file</label>
+                <br>
+                <button id="upload" type="submit">Upload</button>
+            </form>
+            <h2>{{ STATE }}</h2>
+        </div>
+
+        
+    </body>
+
+    <footer>
+        <h1>Create by BiMathAx</h1>
+        <!-- https://docs.djangoproject.com/en/4.0/ref/templates/builtins/ -->
+        <h2>Nous sommes le {{ TODAY|date:"l d F Y" }} </h2>
+    </footer>
+
+</html>

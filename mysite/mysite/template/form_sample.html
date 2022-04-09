@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Equipment Page</title>
+		<!-- <link rel="stylesheet" href="style.css"> -->
+	</head>
+    <body>
+        
+        {% if name == None %}
+            <b>Enter Data and click Submit button</b>
+            <br>
+            <form action=../ShowResult method=GET>
+                First Name: <input name="fname"><br>
+                Last Name: <input name="lname">
+                <br><input type="submit">
+            </form>
+        {% else %} 
+            <h1>Welcome {{ name }}</h1>
+        {% endif %}
+
+    </body>
+</html>

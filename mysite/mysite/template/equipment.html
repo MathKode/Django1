@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+	function home_page() {
+		window.location.href = "../"
+	}
+	function equipment_page() {
+		window.location.href = "equipment"
+	}
+</script>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Equipment Page</title>
+		<!-- <link rel="stylesheet" href="style.css"> -->
+	</head>
+    <body>
+        <button class="headerbt" onclick="home_page();">Excel</button>
+        <button class="headerbt" onclick="equipment_page();">Equipment</button>
+        <br><br>
+        <form action="../equipment_update" method="GET">
+            {% for line in data %}
+                {% for colonne in line %}
+                    <input type="text" value="{{ colonne }}" name="{{ forloop.counter }}"></input>
+                {% endfor %}
+                <br>
+            {% endfor %}
+            <input type="submit" value="Send modification">
+        </form>
+        <br>
+        <form action="../equipment_new" method="GET">
+            <input name="first" type="text">
+            <input name="second" type="text">
+            <input name="third" type="text">
+            <input type="submit" value="Add New Line">
+        </form>
+
+
+        
+
+
+    </body>
+</html>
