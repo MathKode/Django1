@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home Page</title>
+    </head>
+    <body>
+        {% if log_statut == "True" %}
+            <h1>Welcome {{ username }}</h1>
+            <br>
+            <a href="unlog">Unlog</a>
+        {% else %}
+            <h1>You're not log in</h1>
+            <br>
+            <a href="login">LogIn</a>
+        {% endif %}
+        
+    </body>
+</html>
