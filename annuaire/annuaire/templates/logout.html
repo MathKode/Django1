@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+	function login_page() {
+		window.location.href = "../login"
+	}
+</script>
+<style type="text/css"> 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0%;
+    margin: 0%;
+    background-color: rgb(4, 93, 171);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+div {
+    background-color: rgb(36, 226, 255);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    width: 30%;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    left: 35%;
+    position: absolute;
+    top: 45%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+div h1 {
+    font-size: 22px;
+    padding: 2px;
+    color: rgb(0, 0, 0);
+}
+#bt {
+    border: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    color:rgb(0, 0, 0);
+    border-radius: 5px;
+}
+#bt:hover {
+    box-shadow: 3px 3px grey;
+}
+</style>    
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Logouy</title>
+</head>
+<body>
+    <div>
+        <h1>Successful Logout</h1>
+        <button id="bt" onclick="login_page();">Login</button>
+    </div>
+    
+</body>
+</html>

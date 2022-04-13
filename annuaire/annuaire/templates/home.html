@@ -1,1 +1,85 @@
-ok
+<!DOCTYPE html>
+<script type="text/javascript">
+	function logout_page() {
+		window.location.href = "../logout"
+	}
+</script>
+
+<style type="text/css"> 
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0%;
+    margin: 0%;
+    background-color: rgb(4, 93, 171);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+header {
+    background: rgb(6,0,100);
+    background: linear-gradient(95deg, rgb(100, 100, 234) 0%, rgba(0,212,255,1) 100%);
+    color: aliceblue;
+    margin-top: -22px;
+    padding-left: 10px;
+    padding-bottom: 0px;
+}
+
+header div {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.bt_header {
+    font-family: 'Courier New', Courier, monospace;
+    border: 0px;
+    box-shadow: 10px 2px 1px rgba(2, 250, 171, 0.0);
+    margin: 3px;
+}
+
+.bt_header:hover {
+    border: 0px;
+    box-shadow: 3px 3px 0px rgba(2, 250, 171, 0.7);
+}
+
+.contact {
+    background-color: beige;
+    border-radius: 5px;
+    width: 40px;
+}
+
+#main {
+    justify-content: left;
+}
+</style>
+
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <header>
+        <h1>Annuaire</h1>
+        <div>
+            <button onclick="login_page();" class="bt_header">Logout</button>
+            <!--<button onclick="home_page();" class="bt_header">Home</button>-->
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="right">
+            <div class="contact">
+                <h1>NAME</h1>
+            </div>
+        </div>
+        <div class="left">
+            <h1>Name</h1>
+        </div>
+    </section>
+    
+    
+</body>
+</html>
