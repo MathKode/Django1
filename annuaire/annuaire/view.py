@@ -1,6 +1,5 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
 import hashlib
 import random
 import time
@@ -30,7 +29,7 @@ def home_page(request):
             print("ALLOW")
             return render(request, "home.html")
     except: pass
-    return HttpResponseRedirect("login")
+    return HttpResponseRedirect("../login")
 
 def register_page(request):
     if request.method == "GET":
@@ -48,9 +47,15 @@ def register_page(request):
         else:
             state = __create_user(name,mp1)
             if state:
-                return HttpResponseRedirect("login")
+                return HttpResponseRedirect("../login")
             else:
                 return render(request, "register.html", {"msg":"Erreur Create User"})
+
+def logout_page(request):
+    reponse = render(request, "logout.html")
+    reponse.delete_cookie("token")
+    reponse.delete_cookie("username")
+    return reponse
 
 def __create_user(username,password):
     try:
@@ -67,8 +72,6 @@ def __create_user(username,password):
         return True
     except:
         return False
-    
-        
 
 def __user_exist(username):
     file=open("database.txt","r")
