@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+	function register_page() {
+		window.location.href = "register"
+	}
+	function home_page() {
+		window.location.href = "../"
+	}
+</script>
+
+<style type="text/css"> 
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0%;
+    margin: 0%;
+    background-color: rgb(4, 93, 171);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+header {
+    background: rgb(6,0,100);
+    background: linear-gradient(95deg, rgb(100, 100, 234) 0%, rgba(0,212,255,1) 100%);
+    color: aliceblue;
+    margin-top: -22px;
+    padding-left: 10px;
+    padding-bottom: 0px;
+}
+
+header div {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.bt_header {
+    font-family: 'Courier New', Courier, monospace;
+    border: 0px;
+    box-shadow: 10px 2px 1px rgba(2, 250, 171, 0.0);
+    margin: 3px;
+}
+
+.bt_header:hover {
+    border: 0px;
+    box-shadow: 3px 3px 0px rgba(2, 250, 171, 0.7);
+}
+
+section {
+    background-color: azure;
+    width: 230px;
+    height: 183px;
+    text-align: center;
+}
+
+.inputform {
+    background-color: rgb(255, 255, 255);
+    border-width: 0px;
+    border-bottom-width: 5px;
+    border-color: rgb(141, 141, 141);
+}
+
+#loginbt {
+    margin-top: 10px;
+    opacity: 0%;
+}
+
+#logintxt {
+    font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: -40px;
+    margin-right: 15px;
+    padding: 5px 15px;
+    font-size: 15px;
+    color:aliceblue;
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 5px;
+    width:80px;
+    height:25px;
+    background: linear-gradient(40deg, #ff6ec4, #7873f5);
+}
+
+#flexx {
+    display: flex;
+    justify-content: center;
+    align-content: center;    
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+input[type=text] {
+    margin-bottom: 3px;
+}
+
+input[type=password]:focus {
+    outline: none;
+}
+
+#msgdiv {
+    width: 200px;
+    height: 40px;
+    background-color: rgb(255, 143, 143);
+    text-align: center;
+    border-radius: 10px;
+    color: rgb(164, 1, 1);
+    font-size: 10px;
+}
+
+</style>
+
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <h1>Annuaire</h1>
+        <div>
+            <button onclick="register_page();" class="bt_header">Register</button>
+            <button onclick="home_page();" class="bt_header">Home</button>
+        </div>
+    </header>
+
+    <div id="flexx">
+        <section id="login">
+            <h1>Login</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="name" name="name" class="inputform"><br>
+                <input type="password" placeholder="pass" name="password" class="inputform"><br>
+                <input type="submit" name="log" id="loginbt" value="">
+                <label for="log" id="logintxt">Login</label>
+            </form>
+        </section>
+    </div><br>
+
+    {% if msg %}
+        <div id="flexx">
+            <div id="msgdiv">
+                <h3>{{ msg }}</h3>
+            </div>
+        </div>
+    {% endif %}
+    
+</body>
+</html>
