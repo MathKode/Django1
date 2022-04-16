@@ -8,6 +8,10 @@
             window.location.href = "../home?contact_nb={{ forloop.counter0 }}"
         }
     {% endfor %}
+    function supp() {
+        name=document.getElementById("nameinput").value;
+        window.location.href = "../home?delete=" + name
+    }
 </script>
 
 <style type="text/css"> 
@@ -84,6 +88,7 @@ header div {
     border: none;
     height: 50px;
     margin: 10px;
+    max-width: 300px;
 }
 
 .contact:hover {
@@ -139,6 +144,22 @@ button[type="submit"] {
     transition: 1s;
 }
 
+#delete {
+    background: linear-gradient(30deg, rgb(80, 217, 0), rgb(115, 214, 250));
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: aliceblue;
+    margin-left: 95px;
+    transition: 1s ;
+    border: none;
+    margin-bottom: 10px;
+}
+#delete:hover {
+    background: linear-gradient(90deg, rgb(62, 169, 0), rgb(115, 214, 250));
+    transition: 1s;
+}
+
 input:focus {
     outline: none;
 }
@@ -175,7 +196,7 @@ input:focus {
                 {% csrf_token %}
                 <div class="group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" value="{{ name }}">
+                    <input type="text" name="name" id="nameinput" value="{{ name }}">
                 </div>
                 <div class="group">
                     <label for="lastname">Last Name</label>
@@ -196,6 +217,7 @@ input:focus {
                 <input type="submit" id="ok" name="ok" value="Enregistrer">
                 <!-- <label for="ok" id="ok">Enregistrer</label> -->
             </form>
+            <button onclick="supp();" id="delete">Delete</button>
         </div>
     </section>
     
