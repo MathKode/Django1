@@ -3,6 +3,11 @@
 	function logout_page() {
 		window.location.href = "../logout"
 	}
+    {% for contact in people %}
+        function contact_select{{ forloop.counter0 }}() {
+            window.location.href = "../home?contact_nb={{ forloop.counter0 }}"
+        }
+    {% endfor %}
 </script>
 
 <style type="text/css"> 
@@ -46,12 +51,99 @@ header div {
 .contact {
     background-color: beige;
     border-radius: 5px;
-    width: 40px;
 }
 
 #main {
-    justify-content: left;
+    text-align: center;
 }
+.left {
+     background-color: rgb(4, 93, 171);
+    float: left;
+    width: 30%;
+    /*
+    border: solid;
+    border-width: 0px;
+    border-right-width: 3px;
+    */
+    text-align: center;
+    font-size: 12px;
+    min-height:500px;
+}
+
+.contact h1 {
+    padding-top: 4px;
+    padding-bottom: 2px;
+}
+.left h2 {
+    margin-top: -15px;
+    font-size: 10px;
+    overflow: hidden;
+}
+
+.contact {
+    border: none;
+    height: 50px;
+    margin: 10px;
+}
+
+.contact:hover {
+    box-shadow: 3px 3px rgba(226, 219, 16);
+}
+
+.right {
+    background: linear-gradient(20deg, red, rgb(255, 196, 0));
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+#userform {
+    font-size: 15px;
+    padding: 10px;
+}
+.group {
+    width: 300px;
+    padding-bottom: 10px;
+    text-align: right;
+}
+.group label {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-right: 10px;
+    color:rgb(255, 255, 255);
+    
+}
+.group input {
+    width: 180px;
+    border-width: 0px;
+    border-bottom-width: 3px;
+    border-color: rgb(107, 107, 107);
+}
+
+button[type="submit"] {
+    opacity: 10%;
+}
+
+#ok {
+    background: linear-gradient(30deg, blue, rgb(115, 214, 250));
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: aliceblue;
+    margin-left: 95px;
+    transition: 1s ;
+    border: none;
+}
+#ok:hover {
+    background: linear-gradient(90deg, blue, rgb(115, 214, 250));
+    transition: 1s;
+}
+
+input:focus {
+    outline: none;
+}
+
+
 </style>
 
 
@@ -64,19 +156,46 @@ header div {
     <header>
         <h1>Annuaire</h1>
         <div>
-            <button onclick="login_page();" class="bt_header">Logout</button>
+            <button onclick="logout_page();" class="bt_header">Logout</button>
             <!--<button onclick="home_page();" class="bt_header">Home</button>-->
         </div>
     </header>
 
     <section id="main">
-        <div class="right">
-            <div class="contact">
-                <h1>NAME</h1>
-            </div>
-        </div>
         <div class="left">
-            <h1>Name</h1>
+            {% for name, lname, phone, mail, des in people %}
+                <div class="contact" onclick="contact_select{{ forloop.counter0 }}();">
+                    <h1>{{ name }}</h1>
+                    <h2>{{ des }}</h2>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="right">
+            <form method="post" id="userform">
+                {% csrf_token %}
+                <div class="group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" value="{{ name }}">
+                </div>
+                <div class="group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" name="lastname" value="{{ lname }}">
+                </div>
+                <div class="group">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" value="{{ phone }}">
+                </div>
+                <div class="group">
+                    <label for="email">Mail</label>
+                    <input type="email" name="email" value="{{ mail }}">
+                </div>
+                <div class="group">
+                    <label for="des">Description</label>
+                    <input type="text" name="des" value="{{ des }}">
+                </div>
+                <input type="submit" id="ok" name="ok" value="Enregistrer">
+                <!-- <label for="ok" id="ok">Enregistrer</label> -->
+            </form>
         </div>
     </section>
     

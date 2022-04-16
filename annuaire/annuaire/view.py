@@ -13,7 +13,8 @@ def login_page(request):
         password=request.POST["password"]
         if __check_login(name,password):
             print("Good Login")
-            response=render(request, "home.html")
+            #response=render(request, "home.html")
+            response = HttpResponseRedirect("../home")
             response.set_cookie("username",name)
             response.set_cookie("token", __get_token(name))
             return response
@@ -27,7 +28,51 @@ def home_page(request):
         token=request.COOKIES['token']
         if __check_token(name,token):
             print("ALLOW")
-            return render(request, "home.html")
+            if request.method == "GET":
+                try:
+                    nb_select=int(request.GET["contact_nb"])
+                except:
+                    nb_select=0
+                #print("nb select", nb_select)
+                #people=[["Math","C'est moi"],["Jean","Mon père"]]
+                people=__get_contact(str(name))
+                people.append(["New","","","",""])
+                #print(people)
+                select=people[nb_select]
+                context={"people": people,
+                        "name":select[0],
+                        "lname":select[1],
+                        "phone":select[2],
+                        "mail":select[3],
+                        "des":select[4]
+                }
+                #print(context)
+                try:
+                    return render(request, "home.html",context)
+                except Exception as e:
+                    print(e)
+            elif request.method == "POST":
+                re_name=request.POST["name"]
+                re_lname=request.POST["lastname"]
+                re_phone=request.POST["phone"]
+                re_mail=request.POST["email"]
+                re_des=request.POST["des"]
+                l=[re_name, re_lname, re_phone, re_mail, re_des]
+                print(l)
+                result=[]
+                find=False
+                for contact in __get_contact(name):
+                    if contact[0] == re_name:
+                        result.append(l)
+                        find=True
+                    else:
+                        result.append(contact)
+                if not find:
+                    result.append(l)
+                print(result)
+                __update_contact(name,result)
+                return HttpResponseRedirect("../home")
+
     except: pass
     return HttpResponseRedirect("../login")
 
@@ -83,8 +128,6 @@ def __user_exist(username):
                 find=True
         except:pass
     return find
-
-
 
 def __check_login(username,password):
     file=open("database.txt","r")
@@ -149,8 +192,8 @@ def __generate_token(username):
         del ls[1]
         del ls[1]
     except: pass
-    ls.append(str(tk))
-    ls.append(str(int(time.time())+60))
+    ls.insert(1, str(tk))
+    ls.insert(2, str(int(time.time())+90))
     content[username] = ls
     #print(content)
     file=open("database.txt","w")
@@ -164,3 +207,43 @@ def __generate_token(username):
         r.append(line)
     file.write("\n".join(r))
     return tk
+
+def __get_contact(username):
+    file=open("database.txt") # <USER> <PASS> <TOKEN> <END> <CONTACT>
+                              #                             name%)%lname%)%phone%)%mail%)%description                         
+    for p in file.read().split("\n"):
+        c=p.split(":%:")
+        if c[0] == username:
+            result=[]
+            try:
+                for j in c[4:]:
+                    result.append(j.split("%)%"))
+                return result
+            except:pass
+    return None
+
+def __update_contact(username, contact_ls):
+    #contact_ls = [ [name, lname, phone, mail, des], [...] ...]
+    if True:
+        file=open("database.txt","r")
+        data=[]
+        for i in file.read().split("\n"):
+            c=i.split(":%:")
+            if str(c[0]) == str(username):
+                l=[]
+                for i in range(4): l.append(c[i])
+                for i in contact_ls:
+                    l.append("%)%".join(i))
+                data.append(":%:".join(l))
+            else:
+                data.append(":%:".join(c))
+        file.close()
+        print(data)
+        file=open("database.txt","w")
+        file.write("\n".join(data))
+        file.close()
+        return True
+
+if __name__=="__main__":
+    s=__update_contact("mathis",[["mathis","kremer","","bimathax.STUDIO@gmail.com","C'est moi"], ["James","Bond","007","james@gmx.fr","Urgence only"]])
+    print(__get_contact("mathis"))
