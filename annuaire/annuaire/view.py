@@ -30,6 +30,10 @@ def home_page(request):
             print("ALLOW")
             if request.method == "GET":
                 try:
+                    name_del = request.GET["delete"]
+                    __delete_contact(name,name_del)
+                except: pass
+                try:
                     nb_select=int(request.GET["contact_nb"])
                 except:
                     nb_select=0
@@ -243,6 +247,14 @@ def __update_contact(username, contact_ls):
         file.write("\n".join(data))
         file.close()
         return True
+
+def __delete_contact(username, user_del):
+    contact_ls = __get_contact(username)
+    r=[]
+    for i in contact_ls:
+        if i[0] != user_del:
+            r.append(i)
+    __update_contact(username,r)
 
 if __name__=="__main__":
     s=__update_contact("mathis",[["mathis","kremer","","bimathax.STUDIO@gmail.com","C'est moi"], ["James","Bond","007","james@gmx.fr","Urgence only"]])
