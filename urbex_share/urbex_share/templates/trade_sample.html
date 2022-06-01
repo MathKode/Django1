@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load static %}
+<script>
+
+function timedRefresh() {
+    link()
+
+    image = document.getElementById("imgautre")
+    if ( {{ USER_ID }} === 1 ) {
+        autre_id = 2
+    } else {
+        autre_id = 1
+    }
+    image.src = "../../picture/{{ TRADE_ID }}" + autre_id
+
+    image_result = document.getElementById("result")
+    image_result.src = "../../picture/{{ TRADE_ID }}" + "{{ TRADE_ID }}"
+
+    var select=document.querySelector("body form img");
+    if ( select.width != 150 ) {
+        //alert("Chargement Réussi")
+        hide_send_button()
+    } //else {
+       // alert("Pas chargé")
+    //}
+}
+
+var intervalId = window.setInterval(function(){
+  timedRefresh()
+}, 10000);
+
+function link() {
+    h1 = document.getElementById("link")
+    url = window.location.href
+    url_split = url.split("?")
+    h1.innerHTML = url_split[0]
+}
+
+function hide_send_button() {
+    el = document.getElementById("Geoloc")
+    if ( el.value != "" ) {
+        send = document.getElementById("send_form")
+        send.style.opacity = "1%";
+        msg = document.getElementById("message")
+        msg.style.opacity = "100%"
+    }
+}
+
+function copy() {
+    h1 = document.getElementById("link");
+    text = h1.innerHTML;
+    navigator.clipboard.writeText(cmd);
+    alert("Share this link !");
+}
+
+function yes_trade() {
+    current_url = document.getElementById("link").innerHTML
+    user_uid = document.getElementById("user_uid").innerHTML
+    window.location.href = current_url + "?trade=yes" + "&user_uid=" + user_uid
+}
+
+function send_form_js() {
+    //Get button opacity
+    bt = document.getElementById("message")
+    //alert(bt.style.opacity)
+    if (bt.style.opacity === "1") {
+        alert('Coordonnées Inchangeables')
+        return false
+    } else {
+        alert('Please, after closing this window, wait 10second\nTime used to generate the picture');
+        return true
+    }
+}
+
+</script>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap');
+
+body {
+    background-color: rgb(33, 33, 33);
+    padding: 0px;
+    margin: 0px;
+}
+header {
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    background-color: rgb(92, 92, 92);
+    margin-top: -14px;
+    padding-top: 1px;
+}
+header h1 {
+   color: rgb(232, 232, 232);
+}
+.ligne {
+    text-align: center;
+    background-color: black;
+    margin: 0px;
+    margin-top: -20px;
+    font-size: 1px;
+    height: 6px;
+}
+
+#trade_link {
+    background-color: azure;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    width: 50%;
+    margin-left: 25%;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#trade_link button {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(209, 209, 209);
+    width: 20%;
+    min-width: 50px;
+}
+#trade_link button:hover {
+    background-color: rgb(159, 159, 159);
+}
+
+#trade_link h1 {
+    font-size: 17px;
+}
+
+.content {
+    margin-left: 22px;
+    color: blanchedalmond;
+    font-family: 'Barlow', sans-serif;
+}
+
+form {
+    margin-top: 100px;
+}
+
+form input[type="submit"] {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(209, 209, 209);
+    width: 15%;
+    min-width: 45px;
+    min-width: 70px;
+    font-size: 17px;
+    margin-top: 10px;
+}
+form input[type="submit"]:hover {
+    background-color: rgb(159, 159, 159);
+}
+
+#urbex_autre button {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(209, 209, 209);
+    width: 15%;
+    min-width: 70px;
+    font-size: 17px;
+    margin-top: 10px;
+}
+#urbex_autre button:hover {
+    background-color: rgb(159, 159, 159);
+}
+
+#message {
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(209, 209, 209);
+    width: 60%;
+    min-width: 70px;
+    max-width: 370px;
+    font-size: 17px;
+    margin-top: 10px;
+    opacity: 0%;
+    margin-left: -15%;
+}
+
+img {
+    width: 45%;
+    min-width: 150px;
+    max-width: 500px;
+    margin-left: 10%;
+    padding: 5px;
+    border: solid;
+    border-width: 3px;
+    border-color:rgb(159, 159, 159);
+    margin-top: 10px;
+    border-radius: 3px;
+    color: aqua;
+    font-size: 13px;
+}
+
+#urbex_perso {
+    padding-left: 7px;
+    border-left: solid;
+    border-left-width: 5px;
+    border-color: aliceblue;
+    animation-name: div_anim;
+    animation-duration: 1200ms;
+}
+
+#urbex_autre {
+    padding-left: 7px;
+    border-left: solid;
+    border-left-width: 5px;
+    border-color: aliceblue; 
+    animation-name: div_anim;
+    animation-duration: 2s;
+}
+
+@keyframes div_anim {
+    from {  opacity: 0%;
+            margin-left: -50px;};
+    to {    opacity: 100%;
+            margin-left: 7px;};
+}
+
+#user_uid {
+    opacity: 1%;
+}
+#result {
+    border: none;
+}
+</style>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Urbex Share</title>
+    </head>
+    <header>
+        <h1>Urbex Share</h1>
+    </header>
+    <p class="ligne">ok</p>
+    <body onload="JavaScript:timedRefresh();">
+        <p id="user_uid">{{ USER_UID }}</p>
+        <div id="trade_link">
+            <h1 id="link" >link</h1>
+            <button id="copy" onclick="copy();">Copy</button>
+        </div>
+        <form method="post" class="content" id="urbex_perso" onsubmit="return send_form_js();">
+            {% csrf_token %}
+            <h1>La géolocalisation de ton Urbex</h1>
+            <input type="text" value="{{ USER_GEOLOC }}" name="geoloc" id="Geoloc"><br>
+            <img src="../../picture/{{ TRADE_ID }}{{ USER_ID }}" alt=""><br>
+            <input type="submit" id="send_form" value="Envoyer">
+            <button id="message">Une fois envoyée, les coordonnées sont inchangeables</button>
+        </form>
+        <div class="content" id="urbex_autre">
+            <h1>Localisation Proposée par l'autre :</h1>
+            <img id="imgautre" alt="Pas encore donnée"><br>
+            <button onclick="yes_trade();">Accept the trade</button>
+        </div>
+        <img src="../../picture/{{ TRADE_ID }}{{ TRADE_ID }}" alt="" id="result">
+    </body>
+</html>
