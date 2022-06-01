@@ -31,9 +31,11 @@ var intervalId = window.setInterval(function(){
 
 function link() {
     h1 = document.getElementById("link")
+    text_area = document.getElementById("textArea")
     url = window.location.href
     url_split = url.split("?")
     h1.innerHTML = url_split[0]
+    text_area.value = url_split[0]
 }
 
 function hide_send_button() {
@@ -47,9 +49,11 @@ function hide_send_button() {
 }
 
 function copy() {
-    h1 = document.getElementById("link");
-    text = h1.innerHTML;
-    navigator.clipboard.writeText(cmd);
+    //h1 = document.getElementById("link");
+    //text = h1.innerHTML;
+    var content = document.getElementById('textArea');
+    content.select();
+    document.execCommand('copy');
     alert("Share this link !");
 }
 
@@ -181,7 +185,7 @@ img {
     width: 45%;
     min-width: 150px;
     max-width: 500px;
-    margin-left: 10%;
+    margin-left: 0px;
     padding: 5px;
     border: solid;
     border-width: 3px;
@@ -222,6 +226,13 @@ img {
 }
 #result {
     border: none;
+    justify-content: center;
+    width: 90%;
+    max-width: 600px;
+}
+textarea {
+    width: 1px;
+    opacity: 1%;
 }
 </style>
 
@@ -254,5 +265,7 @@ img {
             <button onclick="yes_trade();">Accept the trade</button>
         </div>
         <img src="../../picture/{{ TRADE_ID }}{{ TRADE_ID }}" alt="" id="result">
+        <br><br>
+        <textarea id="textArea">Urbex Share</textarea>
     </body>
 </html>
