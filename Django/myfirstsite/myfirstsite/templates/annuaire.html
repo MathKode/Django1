@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Annuaire</title>
+    </head>
+    <body>
+        <h1>Page d'annuaire</h1>
+        <h2>Voici vos contacts :</h2>
+
+        {% for nom in contact_list %}
+            <h3>Contact : {{ nom }}</h3>
+        {% endfor %}
+
+    </body>
+</html>

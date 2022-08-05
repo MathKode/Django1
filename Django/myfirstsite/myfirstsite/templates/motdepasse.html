@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mot de PASSE</title>
+    </head>
+    <body>
+        <h1>Entrer un mot de passe :</h1>
+
+        <form method="post">
+            {% csrf_token %} 
+            <input type="text" name="motdepasse_input">
+            <input type="submit" value="Envoyer">
+        </form>
+
+    </body>
+</html>
